@@ -147,13 +147,22 @@ void decoding(int numOfTh, const string& encryptedMessage) {
 	{
 		while (index!=numOfTh)
 		{
-
 			string curTask = tasks.front();//git new task
 			tasks.pop();
 			encrypte_message(curTask, index); //solve new task
 			index++;
 		} 
 	}
+	//alternative solution
+	//#pragma omp parallel for
+	//{
+	//	for(int i = 0; i < numOfTh ; i++)
+	//	{
+	//		string curTask = tasks.front();//git new task
+	//		tasks.pop();
+	//		encrypte_message(curTask, i); //solve new task
+	//	} 
+	//}
 }
 
 //method to read the encrypted message from test file
@@ -207,7 +216,7 @@ int main(int argc, char** args)
 	cout << timer.result<chrono::nanoseconds>() << " milliseconds" << endl;
 	cout << "\n--------------------------------------------------------------------------------------------------\n";
 
-	//delete[] results;
+	delete[] results;
 	
 	return 0;
 }
