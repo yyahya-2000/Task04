@@ -1,4 +1,4 @@
-﻿/*
+ /*
 * Ф.И.Г: Яхя Янал, БПИ197
 * Вариант: 28
 * текст задания:
@@ -141,28 +141,15 @@ void make_tasks(int i, const string& encryptedMessage) {
 void decoding(int numOfTh, const string& encryptedMessage) {
 	results = new string[numOfTh]; // becuase of we know the num of threads so we initialize the dynamic array results 
 	make_tasks(numOfTh, encryptedMessage); // split tasks in order to give task to each thread;
-	int index = 0;
-
-#pragma omp parallel while
+	#pragma omp parallel for
 	{
-		while (index!=numOfTh)
+		for(int i = 0; i < numOfTh ; i++)
 		{
 			string curTask = tasks.front();//git new task
 			tasks.pop();
-			encrypte_message(curTask, index); //solve new task
-			index++;
+			encrypte_message(curTask, i); //solve new task
 		} 
 	}
-	//alternative solution
-	//#pragma omp parallel for
-	//{
-	//	for(int i = 0; i < numOfTh ; i++)
-	//	{
-	//		string curTask = tasks.front();//git new task
-	//		tasks.pop();
-	//		encrypte_message(curTask, i); //solve new task
-	//	} 
-	//}
 }
 
 //method to read the encrypted message from test file
